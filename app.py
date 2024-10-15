@@ -1,6 +1,5 @@
 from flask import Flask, request, redirect, url_for, render_template
 import yt_dlp
-import io
 
 app = Flask(__name__)
 
