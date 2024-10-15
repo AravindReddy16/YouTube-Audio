@@ -25,7 +25,7 @@ def home():
     return render_template('index.html')
 
 @app.route('/audio', methods=['POST'])
-def extract():
+def audio():
     if "youtube_url" in request.form:
         youtube_url = request.form['youtube_url']
         if "https://youtu.be/" in youtube_url:
