@@ -1,5 +1,6 @@
 from flask import Flask, request, redirect, url_for, render_template
 import yt_dlp
+import io
 
 app = Flask(__name__)
 
@@ -43,4 +44,4 @@ def extract():
         return redirect(url_for('home'))
 
 if __name__ == '__main__':
-    app.run(host="192.168.1.4",port=5000,debug=True)
+    app.run(debug=True)
