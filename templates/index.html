@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='images/image.png') }}"
+      type="image/x-icon"
+    />
+    <title>YouTube Audio</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="music-container">
+        <div class="container-headers">
+          <div class="lobster-regular">
+            <p>Listen to YouTube Audio's</p>
+          </div>
+          <div class="image">
+            <img
+              src="{{ url_for('static', filename='images/picture.png') }}"
+              alt="youtube.com"
+            />
+          </div>
+        </div>
+        <div class="music-box">
+          <div class="audio-text">
+            <h1 class="pacifico-regular">Way's to YouTube Audio</h1>
+            <p>
+              Just copy the url of video you like to listen from youtube and
+              paste it to listen even in background or while screen is off.
+            </p>
+          </div>
+          <div class="audio-url">
+            <form action="/audio" method="POST">
+              <input
+                type="text"
+                id="youtube_url"
+                name="youtube_url"
+                placeholder="Enter YouTube URL"
+                required
+              />
+              <button type="submit" class="btn">Get Audio</button>
+              <div class="loader">
+                <p id="f">•</p>
+                <p id="s">•</p>
+                <p id="t">•</p>
+              </div>
+            </form>
+          </div>
+          <div class="audio-output">
+            <audio id="audio-player" controls>
+              <source src="{{ audio_url }}" type="audio/mp3" />
+              Your browser does not support the audio element.
+            </audio>
+
+            <script>
+              const load = document.querySelector(".loader");
+              const btn = document.querySelector(".btn");
+
+              if ("mediaSession" in navigator) {
+                const audioPlayer = document.getElementById("audio-player");
+
+                navigator.mediaSession.metadata = new MediaMetadata({
+                  title: "YouTube Audio",
+                  artist: "Extracted Audio",
+                  album: "YouTube",
+                  artwork: [
+                    {
+                      src: "https://www.youtube.com/s/desktop/10.202.312/assets/img/favicon_48x48.png",
+                      sizes: "48x48",
+                      type: "image/png",
+                    },
+                  ],
+                });
+
+                navigator.mediaSession.setActionHandler("play", () => {
+                  audioPlayer.play();
+                });
+
+                navigator.mediaSession.setActionHandler("pause", () => {
+                  audioPlayer.pause();
+                });
+              }
+
+              window.addEventListener("beforeunload", () => {
+                btn.style.display = "none";
+                load.style.display = "flex";
+              });
+            </script>
+          </div>
+          <div class="footer">
+            <p>©️ Rights Reserved | @TechInc 2024.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
